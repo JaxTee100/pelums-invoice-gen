@@ -107,7 +107,7 @@ export default function NewInvoicePage() {
             type="text"
             value={form.customerName}
             onChange={(e) => setForm({ ...form, customerName: e.target.value })}
-            className="w-full p-2 border border-pink-300 rounded focus:outline-none focus:ring-2 focus:ring-pink-400"
+            className="w-full text-black p-2 border border-pink-300 rounded focus:outline-none focus:ring-2 focus:ring-pink-400"
             required
           />
         </div>
@@ -119,7 +119,7 @@ export default function NewInvoicePage() {
             type="email"
             value={form.customerEmail}
             onChange={(e) => setForm({ ...form, customerEmail: e.target.value })}
-            className="w-full p-2 border border-pink-300 rounded focus:outline-none focus:ring-2 focus:ring-pink-400"
+            className="w-full text-black p-2 border border-pink-300 rounded focus:outline-none focus:ring-2 focus:ring-pink-400"
             required
           />
         </div>
@@ -150,10 +150,10 @@ export default function NewInvoicePage() {
                     }
                   }}
                   
-                className="sm:col-span-2 p-2 border border-pink-300 rounded focus:outline-none focus:ring-2 focus:ring-pink-400"
+                className="sm:col-span-2 text-black p-2 border border-pink-300 rounded focus:outline-none focus:ring-2 focus:ring-pink-400"
                 required
               >
-                <option value="">Select Item</option>
+                <option value="" className='text-black'>Select Item</option>
                 {availableItems.map((menuItem, idx) => (
                   <option key={idx} value={menuItem.description}>
                     {menuItem.description} - ₦{menuItem.price}
@@ -167,7 +167,7 @@ export default function NewInvoicePage() {
                 placeholder="Qty"
                 value={item.quantity}
                 onChange={(e) => handleItemChange(index, 'quantity', parseFloat(e.target.value))}
-                className="p-2 border border-pink-300 rounded focus:outline-none focus:ring-2 focus:ring-pink-400"
+                className="p-2 text-black border border-pink-300 rounded focus:outline-none focus:ring-2 focus:ring-pink-400"
                 required
               />
 
@@ -176,7 +176,7 @@ export default function NewInvoicePage() {
                 placeholder="Price"
                 value={item.price}
                 readOnly
-                className="p-2 border bg-pink-100 text-pink-800 rounded"
+                className="p-2 border text-black bg-pink-100  rounded"
               />
 
               <button

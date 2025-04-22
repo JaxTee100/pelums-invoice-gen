@@ -87,7 +87,7 @@ export default function InvoiceDetailPage() {
 
     doc.setFontSize(10);
     doc.setFont('times', 'italic');
-    doc.text('Thank you for your business', 14, 285);
+    doc.text('Thank you for your patronage', 14, 285);
 
     return doc.output('blob');
   };
