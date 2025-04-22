@@ -31,23 +31,28 @@ export default function InvoiceDetailPage() {
 
   const generatePDF = (): Blob | undefined => {
     if (!invoice) return;
-
+  
     const doc = new jsPDF();
-
+  
     doc.setFont('times', 'bold');
     doc.setFontSize(26);
     doc.setTextColor(40, 40, 40);
-    doc.text('INVOICE', 14, 22);
-
+    doc.text('INVOICE', 14, 22); // Left aligned
+  
     doc.setFontSize(12);
     doc.setFont('helvetica', 'normal');
-    doc.text(`Invoice from: Elite Kitchen`, 150, 22, { align: 'right' });
-
+  
+    // Right-aligned text
+    const pageWidth = doc.internal.pageSize.getWidth();
+    doc.text('Invoice from: Elite Kitchen', pageWidth - 14, 22, { align: 'right' });
+  
+    // Space between left and right by placing on same line
     doc.text(`Invoice to: ${invoice.customerName}`, 14, 35);
-    doc.text(`Invoice Date: ${new Date().toLocaleDateString()}`, 150, 35, { align: 'right' });
-    doc.text(`Invoice Number: ${invoice._id}`, 150, 42, { align: 'right' });
+    doc.text(`Invoice Date: ${new Date().toLocaleDateString()}`, pageWidth - 14, 35, { align: 'right' });
+  
     doc.text(`Email: ${invoice.customerEmail}`, 14, 42);
-
+    doc.text(`Invoice Number: ${invoice._id}`, pageWidth - 14, 42, { align: 'right' });
+  
     autoTable(doc, {
       startY: 55,
       head: [['DESCRIPTION', 'PRICE', 'QUANTITY', 'SUBTOTAL']],
@@ -76,21 +81,22 @@ export default function InvoiceDetailPage() {
         0: { halign: 'left' },
       },
     });
-
+  
     const finalY = (doc as any).lastAutoTable.finalY + 10;
-
+  
     doc.setFillColor(255, 204, 229);
     doc.rect(140, finalY, 60, 30, 'F');
     doc.setTextColor(0, 0, 0);
     doc.text(`Sub-total: N${invoice.totalAmount.toFixed(2)}`, 145, finalY + 8);
     doc.text(`Total: N${invoice.totalAmount.toFixed(2)}`, 145, finalY + 24);
-
+  
     doc.setFontSize(10);
     doc.setFont('times', 'italic');
     doc.text('Thank you for your patronage', 14, 285);
-
+  
     return doc.output('blob');
   };
+  
 
   const sendEmail = async () => {
     if (!invoice) return;
@@ -151,7 +157,7 @@ export default function InvoiceDetailPage() {
 
   return (
     <motion.main
-      className="max-w-3xl mx-auto p-6"
+      className="max-w-3xl mx-auto p-6 text-black"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -183,12 +189,12 @@ export default function InvoiceDetailPage() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="text-center hover:bg-pink-50 transition"
+                className="text-center hover:bg-pink-50 transition text-black"
               >
-                <td className="p-2 border">{item.description}</td>
-                <td className="p-2 border">{item.quantity}</td>
-                <td className="p-2 border">N{item.price.toFixed(2)}</td>
-                <td className="p-2 border">N{(item.quantity * item.price).toFixed(2)}</td>
+                <td className="p-2 border text-black">{item.description}</td>
+                <td className="p-2 border text-black">{item.quantity}</td>
+                <td className="p-2 border text-black">N{item.price.toFixed(2)}</td>
+                <td className="p-2 border text-black">N{(item.quantity * item.price).toFixed(2)}</td>
               </motion.tr>
             ))}
           </tbody>
