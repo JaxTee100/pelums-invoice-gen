@@ -18,7 +18,7 @@ type Invoice = {
     items: InvoiceItem[];
     totalAmount: number;
 };
-
+const baseApi = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
 export default function InvoiceDetailPage() {
     const params = useParams();
     const { id } = params;
@@ -104,7 +104,7 @@ export default function InvoiceDetailPage() {
         formData.append('pdf', pdfBlob, `invoice-${invoice._id}.pdf`);
 
         try {
-            const res = await fetch(`http://localhost:4000/api/email/${invoice._id}/send`, {
+            const res = await fetch(`${baseApi}/email/${invoice._id}/send`, {
                 method: 'POST',
                 body: formData
             });
@@ -138,7 +138,7 @@ export default function InvoiceDetailPage() {
     useEffect(() => {
         async function fetchInvoice() {
             try {
-                const res = await fetch(`http://localhost:4000/api/invoices/${id}`);
+                const res = await fetch(`${baseApi}/invoices/${id}`);
                 const data = await res.json();
                 setInvoice(data);
             } catch (err) {

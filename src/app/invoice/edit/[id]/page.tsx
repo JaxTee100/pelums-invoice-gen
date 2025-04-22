@@ -17,6 +17,8 @@ type InvoiceForm = {
   dueDate: string;
 };
 
+const baseApi = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
+
 export default function EditInvoicePage() {
   const [form, setForm] = useState<InvoiceForm | null>(null);
   const [loading, setLoading] = useState(true);
@@ -31,7 +33,7 @@ const { id } = useParams() as { id: string };
     const fetchInvoice = async () => {
       if (!id) return;
 
-      const res = await fetch(`http://localhost:4000/api/invoices/${id}`);
+      const res = await fetch(`${baseApi}/invoices/${id}`);
       const data = await res.json();
       setForm({
         customerName: data.customerName,

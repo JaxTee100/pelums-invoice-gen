@@ -30,6 +30,7 @@ const availableItems = [
     { description: 'Fish (pcs)', price: 900 },
 ];
 
+const baseApi = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
 export default function NewInvoicePage() {
     const router = useRouter(); // ✅ Make sure it's inside the component body
 
@@ -78,7 +79,7 @@ export default function NewInvoicePage() {
         };
 
         try {
-            const res = await fetch('http://localhost:4000/api/invoices', {
+            const res = await fetch(`${baseApi}/invoices`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),

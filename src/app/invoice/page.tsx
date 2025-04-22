@@ -11,7 +11,7 @@ type Invoice = {
   totalAmount: number;
   createdAt: string; // Add this field to the Invoice type
 };
-
+const baseApi = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
 export default function InvoicesPage() {
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [loading, setLoading] = useState(true);
@@ -19,7 +19,7 @@ export default function InvoicesPage() {
   useEffect(() => {
     const fetchInvoices = async () => {
       try {
-        const res = await fetch('http://localhost:4000/api/invoices');
+        const res = await fetch(`${baseApi}/invoices`);
         const data = await res.json();
         setInvoices(data);
       } catch (err) {
