@@ -207,7 +207,7 @@ export default function NewInvoicePage() {
             type="date"
             value={form.dueDate}
             onChange={(e) => setForm({ ...form, dueDate: e.target.value })}
-            className="w-full p-2 border border-pink-300 rounded focus:outline-none focus:ring-2 focus:ring-pink-400"
+            className="w-full p-2 text-black border border-pink-300 rounded focus:outline-none focus:ring-2 focus:ring-pink-400"
             required
           />
         </div>
